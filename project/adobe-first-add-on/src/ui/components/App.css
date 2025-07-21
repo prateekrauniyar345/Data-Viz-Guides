@@ -1,0 +1,22 @@
+/* .container {
+    margin: 24px;
+    display: flex;
+    flex-direction: column;
+} */
+
+.dropzone-container:hover {
+    border-color: #6366f1 !important;
+    background-color: #f8faff !important;
+}
+
+.dropzone-container:focus-within {
+    border-color: #6366f1 !important;
+    background-color: #f8faff !important;
+    outline: none;
+}
+
+/* Ensure the dropzone stays within bounds */
+.dropzone-container * {
+    max-width: 100%;
+    word-wrap: break-word;
+}
