@@ -1,7 +1,7 @@
 # 📊 Data Visualization Add-on for Adobe Express
 *A powerful Adobe Express add-on that transforms data into beautiful, interactive visualizations*
 
-[![Hackathon](https://img.shields.io/badge/Adobe_Express-Hackathon_2025-FF0000?style=for-the-badge&logo=adobe)](https://adobe-express-addons-hackathon.devpost.com/)
+[![Hackathon](https://img.shields.io/badge/Adobe_Express-Hackathon_2025-FF0000?style=for-the-badge&logo=adobe)](https://adobeexpress.devpost.com/?_gl=1*1uzw0ju*_gcl_au*NTg4NTkzODA4LjE3NTMwMTU5MzE.*_ga*MTU5MjgxMDg0OC4xNzUzMDE1OTMx*_ga_0YHJK3Y10M*czE3NTMxMzY0MDYkbzckZzEkdDE3NTMxMzk4MjgkajI0JGwwJGgw)
 [![Status](https://img.shields.io/badge/Status-Active_Development-green?style=for-the-badge)](https://github.com/prateekrauniyar345/Data-Viz-Guides)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
@@ -175,7 +175,7 @@ Data-Viz-Adobe-Express-Addon/
 
 ## 🔗 Important Links
 
-- **🏆 [Adobe Hackathon Submission](https://adobe-express-addons-hackathon.devpost.com/)**
+- **🏆 [Adobe Hackathon Submission](https://devpost.com/software/data-viz-i1no0c)**
 - **📱 [Live Demo](https://prateekrauniyar345.github.io/Data-Viz-Guides)**
 - **🐛 [Report Issues](https://github.com/prateekrauniyar345/Data-Viz-Guides/issues)**
 - **💡 [Feature Requests](https://github.com/prateekrauniyar345/Data-Viz-Guides/discussions)**
