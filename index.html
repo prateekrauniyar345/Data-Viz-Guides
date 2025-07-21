@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Add-on for Adobe Express | Transform Your Data</title>
+    <meta name="description" content="AI-powered data visualization add-on for Adobe Express. Upload CSV/XLSX files and create stunning interactive charts with intelligent recommendations.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #1E40AF;
+            --accent-color: #10B981;
+            --dark-color: #1F2937;
+            --light-bg: #F8FAFC;
+            --gradient: linear-gradient(135deg, #FF0000, #FF4444);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero .lead {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Badges */
+        .badge-container {
+            margin: 2rem 0;
+        }
+
+        .custom-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .custom-badge:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #6B7280;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            background: var(--light-bg);
+        }
+
+        .tech-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--accent-color);
+        }
+
+        .timeline-item.completed::before {
+            background: var(--accent-color);
+        }
+
+        .timeline-item.in-progress::before {
+            background: #F59E0B;
+            box-shadow: 0 0 0 3px #F59E0B;
+        }
+
+        .timeline-item.future::before {
+            background: #6B7280;
+            box-shadow: 0 0 0 3px #6B7280;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--dark-color);
+            color: white;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #CC0000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.3);
+        }
+
+        .btn-outline-light {
+            border: 2px solid white;
+            padding: 12px 30px;
+            font-weight: 500;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 15px;
+            margin-left: 1rem;
+        }
+
+        .status-completed {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .status-progress {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-future {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline-item {
+                padding-left: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Demo Section */
+        .demo-preview {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .demo-video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center hero-content animate-fade-in">
+                    <h1>📊 Data Visualization Add-on</h1>
+                    <p class="lead">Transform your data into stunning, interactive visualizations directly in Adobe Express with AI-powered chart recommendations</p>
+                    
+                    <div class="badge-container">
+                        <a href="https://adobe-express-addons-hackathon.devpost.com/" class="custom-badge">
+                            <i class="fas fa-trophy"></i> Adobe Express Hackathon 2025
+                        </a>
+                        <span class="custom-badge">
+                            <i class="fas fa-robot"></i> AI-Powered
+                        </span>
+                        <span class="custom-badge">
+                            <i class="fas fa-chart-bar"></i> Interactive Charts
+                        </span>
+                        <span class="custom-badge">
+                            <i class="fas fa-file-csv"></i> CSV/XLSX Support
+                        </span>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="#features" class="btn btn-light btn-lg me-3">
+                            <i class="fas fa-play"></i> Explore Features
+                        </a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-envelope"></i> Get In Touch
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">🚀 What We've Built</h2>
+            <p class="section-subtitle">A comprehensive data visualization solution that brings the power of AI and interactive charts directly to Adobe Express</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>AI-Powered Recommendations</h4>
+                        <p>Upload your data and get intelligent chart suggestions based on data structure. Our AI analyzes your dataset and recommends the most suitable visualization types for univariate, bivariate, and multivariate analysis.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <h4>Universal File Support</h4>
+                        <p>Seamlessly upload and process CSV and XLSX files with drag-and-drop functionality. Built-in validation ensures your data is properly formatted and ready for visualization.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Interactive Visualizations</h4>
+                        <p>Create stunning, responsive charts using Observable Plot. Support for bar charts, line graphs, scatter plots, histograms, heatmaps, and more with real-time customization.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>Real-time Customization</h4>
+                        <p>Live preview and styling controls allow you to customize colors, dimensions, margins, and other visual properties. See changes instantly as you adjust your chart's appearance.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h4>Native Adobe Integration</h4>
+                        <p>Seamlessly insert generated charts directly into Adobe Express documents. Charts are converted to high-quality PNG images that maintain their visual integrity.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-vector-square"></i>
+                        </div>
+                        <h4>SVG Interaction</h4>
+                        <p>Real-time interaction with SVG elements allows for dynamic chart manipulation and enhanced user experience. Charts remain scalable and maintain crisp quality at any size.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="section tech-stack">
+        <div class="container">
+            <h2 class="section-title">🛠️ Built With Modern Technology</h2>
+            <p class="section-subtitle">Leveraging cutting-edge tools and frameworks to deliver exceptional performance and user experience</p>
+            
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <h5>React 18+</h5>
+                        <p>Modern UI with hooks and efficient state management</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-chart-area"></i>
+                        </div>
+                        <h5>Observable Plot</h5>
+                        <p>High-quality, interactive visualization library</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5>Custom LLM</h5>
+                        <p>AI-powered chart recommendations and insights</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <i class="fab fa-adobe"></i>
+                        </div>
+                        <h5>Adobe APIs</h5>
+                        <p>Native Express integration via Document Sandbox</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">🎥 See It In Action</h2>
+            <p class="section-subtitle">Watch how easy it is to transform your data into beautiful visualizations</p>
+            
+            <div class="demo-preview">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div style="background: linear-gradient(45deg, #f0f9ff, #e0f2fe); padding: 3rem; border-radius: 15px; text-align: center;">
+                            <i class="fas fa-play-circle" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                            <h4>Demo Video Coming Soon!</h4>
+                            <p class="mb-0">We're preparing an exciting demo video that showcases all the features and capabilities of our Data Visualization Add-on.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="section" style="background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">🗺️ Development Roadmap</h2>
+            <p class="section-subtitle">Our journey from hackathon MVP to production-ready solution</p>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4><i class="fas fa-rocket text-success"></i> Current Achievements</h4>
+                    <div class="timeline">
+                        <div class="timeline-item completed">
+                            <h5>Hackathon MVP <span class="status-badge status-completed">Completed</span></h5>
+                            <p>✅ Core file upload functionality<br>
+                               ✅ AI-powered chart recommendations<br>
+                               ✅ Observable Plot integration<br>
+                               ✅ Adobe Express insertion<br>
+                               ✅ Real-time SVG interaction</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h4><i class="fas fa-clock text-warning"></i> Next Phase (August 2025)</h4>
+                    <div class="timeline">
+                        <div class="timeline-item in-progress">
+                            <h5>Enhanced User Experience <span class="status-badge status-progress">In Progress</span></h5>
+                            <p>🔄 Faster file processing algorithms<br>
+                               🔄 Optimized LLM response times<br>
+                               🔄 Enhanced AI recommendation accuracy<br>
+                               🔄 Additional chart types and styles<br>
+                               🔄 Performance optimizations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4><i class="fas fa-star text-primary"></i> Exciting Future Features</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="feature-card">
+                                <h5><i class="fas fa-expand-arrows-alt"></i> Full-Screen Chart Comparison</h5>
+                                <p>Compare multiple charts side-by-side in full-screen mode with advanced filtering and interaction capabilities.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="feature-card">
+                                <h5><i class="fas fa-mouse-pointer"></i> Advanced Interactivity</h5>
+                                <p>Real-time chart manipulation, drill-down capabilities, and dynamic data filtering for deeper insights.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="feature-card">
+                                <h5><i class="fas fa-users"></i> User Feedback Integration</h5>
+                                <p>Community-driven features based on user feedback and usage analytics to continuously improve the experience.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="feature-card">
+                                <h5><i class="fas fa-book"></i> Comprehensive Documentation</h5>
+                                <p>Detailed guides, tutorials, API references, and best practices for maximizing the add-on's potential.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">📞 Get In Touch</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Have questions, feedback, or want to collaborate? We'd love to hear from you!</p>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p>For inquiries, feedback, and collaboration opportunities</p>
+                        <a href="mailto:prateekrauniyar345@gmail.com" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i> Send Email
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h4>Public Repository</h4>
+                        <p>Source code and documentation for the Data Viz Add-on project</p>
+                        <a href="https://github.com/prateekrauniyar345/Data-Viz-Guides" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-github"></i> View Repository
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4>Hackathon Submission</h4>
+                        <p>View our official submission on Devpost</p>
+                        <a href="https://adobe-express-addons-hackathon.devpost.com/" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> View Submission
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <h4 style="color: white; margin-bottom: 2rem;">Project Information</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px;">
+                                <div class="row text-center">
+                                    <div class="col-md-3">
+                                        <h5 style="color: var(--primary-color);">Category</h5>
+                                        <p>Best AI-enhanced Experience</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 style="color: var(--primary-color);">Status</h5>
+                                        <p>Active Development</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 style="color: var(--primary-color);">Version</h5>
+                                        <p>v1.0.0-hackathon</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 style="color: var(--primary-color);">Release Date</h5>
+                                        <p>July 21, 2025</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4" style="background: #000; color: white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="mb-0">&copy; 2025 Data Visualization Add-on for Adobe Express. Built with ❤️ for the Adobe Express community.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-0">Transforming data into insights, one visualization at a time.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and sections
+        document.querySelectorAll('.feature-card, .tech-item, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Dynamic typing effect for hero title (optional enhancement)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add any initialization code here
+            console.log('Data Visualization Add-on site loaded successfully!');
+        });
+    </script>
+</body>
+</html>
